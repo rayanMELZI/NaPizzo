@@ -1,0 +1,11 @@
+{
+  "name": "napizzo",
+  "version": "1.0.0",
+  "description": "Platform for pizzerias & fast foods: sign up, subscribe, build your own online shop page (EN/AR/FR).",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": { "node": ">=22.13" }
+}
