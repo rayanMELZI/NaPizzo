@@ -8,6 +8,8 @@ Requires Node >= 22.13 (uses built-in `node:sqlite`, zero npm dependencies).
     npm start        # http://localhost:3000  (PORT env to change)
     npm test
 
+Static demo (no backend, data in localStorage) for hosting under any sub-path:  `npm run build:preview` → `dist/`.
+
 Data lives in `data/` (SQLite + uploaded images).
 
 ## Overview

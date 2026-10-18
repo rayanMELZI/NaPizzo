@@ -15,7 +15,7 @@
   }
   document.addEventListener('click', (e) => {
     const a = e.target.closest('.add');
-    if (a) { cart[a.dataset.id] = (cart[a.dataset.id] || 0) + 1; refresh(); a.animate([{ transform: 'scale(1.4)' }, { transform: 'scale(1)' }], 200); }
+    if (a) { cart[a.dataset.id] = (cart[a.dataset.id] || 0) + 1; refresh(); a.animate && a.animate([{ transform: 'scale(1.4)' }, { transform: 'scale(1)' }], 200); }
   });
   const sheet = $('sheet'), sin = $('sin');
   sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.classList.remove('open'); });

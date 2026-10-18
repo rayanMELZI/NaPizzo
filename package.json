@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
+    "build:preview": "node scripts/build-preview.js",
     "test": "node --test test/*.test.js"
   },
   "engines": { "node": ">=22.13" }

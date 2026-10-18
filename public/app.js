@@ -33,7 +33,9 @@
   const langSwitch = () => `<div class="lang">${LANGS.map((l) => `<button data-lang="${l}" class="${l === lang ? 'on' : ''}">${LANG_NAMES[l]}</button>`).join('')}</div>`;
   function bindLang() { $$('[data-lang]').forEach((b) => b.onclick = () => { setLang(b.dataset.lang); route(); }); }
 
-  const shopUrl = (s) => `${location.origin}/s/${s.slug}`;
+  // In the static demo build (see scripts/build-preview.js) shop pages live behind a hash route of this same page.
+  const pageUrl = (slug, q = '') => (window.NAPIZZO_DEMO ? `${location.origin}${location.pathname}#/s/${slug}${q ? '?' + q : ''}` : `${location.origin}/s/${slug}${q ? '?' + q : ''}`);
+  const shopUrl = (s) => pageUrl(s.slug);
   const loc = (o, shop) => (o && (o[lang] || o[shop.default_lang] || Object.values(o).find(Boolean))) || '';
   const money = (n, shop) => `${(+n).toFixed(2).replace(/\.00$/, '')} ${shop.currency}`;
 
@@ -43,6 +45,7 @@
     clearInterval(poll);
     const hash = location.hash.replace(/^#\/?/, '') || '';
     document.documentElement.lang = lang; document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    if (window.NAPIZZO_DEMO && hash.startsWith('s/')) return window.NAPIZZO_DEMO.showShop(hash.slice(2));
     if (!me) await load();
     if (!me.user) {
       if (hash === 'login' || hash === 'signup') return authView(hash);
@@ -50,7 +53,7 @@
     }
     if (hash === 'login' || hash === 'signup' || hash === '') return (location.hash = me.shop ? '#/home' : '#/setup');
     if (!me.shop) return wizard();
-    const views = { home, design, menuView, orders: ordersView, settings, billing };
+    const views = { home, design, menu: menuView, orders: ordersView, settings, billing };
     shell(hash, (views[hash] || home));
   }
   window.addEventListener('hashchange', route);
@@ -187,7 +190,7 @@
         <textarea rows="3" data-tx="${l}.about" placeholder="${t('d.about')}" ${l === 'ar' ? 'dir="rtl"' : ''}>${esc(cfg.texts?.[l]?.about)}</textarea>`).join('')}</div>
       <div class="card"><h3>🧩 ${t('d.sections')}</h3>${cfg.sections.map((x, i) => `<div class="sec"><input type="checkbox" class="tg" data-s="${i}" ${x.on ? 'checked' : ''} style="width:1.3rem;height:1.3rem"><b>${secNames[x.id]}</b>
         <button class="btn ghost small" data-mv="${i}:-1" ${i === 0 ? 'disabled' : ''}>↑</button><button class="btn ghost small" data-mv="${i}:1" ${i === cfg.sections.length - 1 ? 'disabled' : ''}>↓</button></div>`).join('')}</div>
-      </div><div class="preview"><iframe id="pv" src="/s/${s.slug}?preview=1&lang=${s.langs.includes(lang) ? lang : s.default_lang}" title="preview"></iframe></div></div>`;
+      </div><div class="preview"><iframe id="pv" src="${pageUrl(s.slug, `preview=1&lang=${s.langs.includes(lang) ? lang : s.default_lang}`)}" title="preview"></iframe></div></div>`;
     const save = debounce(async () => {
       try { const r = await api('PUT', '/api/shop', { config: cfg }); me.shop = r.shop; $('#pv').contentWindow.location.reload(); toast('✓ ' + t('saved')); } catch (e) { toast(errMsg(e)); }
     }, 500);
@@ -315,5 +318,6 @@
   }
 
   setLang(lang);
+  if (window.NAPIZZO_DEMO) window.NAPIZZO_DEMO.banner = () => t('demo.banner');
   route();
 })();

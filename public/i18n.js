@@ -48,6 +48,7 @@
     'err.exists': 'This already exists.', 'err.credentials': 'Wrong email or password.', 'err.name': 'Please enter a name.', 'err.card': 'Card details look wrong.',
     'err.upload': 'Could not upload the image (max 3 MB, PNG/JPG/WEBP/GIF).', 'err.slug': 'Use 3-30 letters, numbers or dashes.', 'err.slug-taken': 'This address is taken.',
     'err.limit': 'Menu limit reached. Upgrade to Pro for unlimited dishes.', 'err.Too many attempts': 'Too many attempts. Wait a few minutes.',
+    'demo.banner': 'Demo preview: your data is stored only in this browser.',
     // shop page
     's.order': 'Order now', 's.menu': 'Our menu', 's.about': 'About us', 's.hours': 'Opening hours', 's.contact': 'Contact', 's.add': 'Add', 's.cart': 'Cart',
     's.yourOrder': 'Your order', 's.pickup': 'Pickup', 's.delivery': 'Delivery', 's.name': 'Your name', 's.phone': 'Phone number', 's.address': 'Delivery address',
@@ -103,6 +104,7 @@
     'err.exists': 'Existe déjà.', 'err.credentials': 'E-mail ou mot de passe incorrect.', 'err.name': 'Veuillez saisir un nom.', 'err.card': 'Les informations de carte semblent incorrectes.',
     'err.upload': 'Impossible d’envoyer l’image (3 Mo max, PNG/JPG/WEBP/GIF).', 'err.slug': 'Utilisez 3 à 30 lettres, chiffres ou tirets.', 'err.slug-taken': 'Cette adresse est déjà prise.',
     'err.limit': 'Limite du menu atteinte. Passez à Pro pour des plats illimités.', 'err.Too many attempts': 'Trop de tentatives. Patientez quelques minutes.',
+    'demo.banner': 'Aperçu démo : vos données restent uniquement dans ce navigateur.',
     's.order': 'Commander', 's.menu': 'Notre menu', 's.about': 'À propos', 's.hours': 'Horaires', 's.contact': 'Contact', 's.add': 'Ajouter', 's.cart': 'Panier',
     's.yourOrder': 'Votre commande', 's.pickup': 'À emporter', 's.delivery': 'Livraison', 's.name': 'Votre nom', 's.phone': 'Numéro de téléphone', 's.address': 'Adresse de livraison',
     's.note': 'Remarque (facultatif)', 's.total': 'Total', 's.payCash': 'Paiement en espèces à la remise / livraison', 's.place': 'Envoyer la commande', 's.thanks': 'Merci ! Votre commande a été envoyée.',
@@ -157,6 +159,7 @@
     'err.exists': 'موجود مسبقًا.', 'err.credentials': 'البريد أو كلمة المرور غير صحيحة.', 'err.name': 'أدخل اسمًا.', 'err.card': 'بيانات البطاقة غير صحيحة.',
     'err.upload': 'تعذر رفع الصورة (الحد 3 ميغابايت، PNG/JPG/WEBP/GIF).', 'err.slug': 'استخدم من 3 إلى 30 حرفًا أو رقمًا أو شرطة.', 'err.slug-taken': 'هذا العنوان مستخدم.',
     'err.limit': 'تم بلوغ حد القائمة. انتقل إلى المحترف لأصناف غير محدودة.', 'err.Too many attempts': 'محاولات كثيرة. انتظر بضع دقائق.',
+    'demo.banner': 'معاينة تجريبية: بياناتك محفوظة في هذا المتصفح فقط.',
     's.order': 'اطلب الآن', 's.menu': 'قائمتنا', 's.about': 'من نحن', 's.hours': 'ساعات العمل', 's.contact': 'اتصل بنا', 's.add': 'أضف', 's.cart': 'السلة',
     's.yourOrder': 'طلبك', 's.pickup': 'استلام من المطعم', 's.delivery': 'توصيل', 's.name': 'اسمك', 's.phone': 'رقم الهاتف', 's.address': 'عنوان التوصيل',
     's.note': 'ملاحظة (اختياري)', 's.total': 'المجموع', 's.payCash': 'الدفع نقدًا عند الاستلام / التوصيل', 's.place': 'إرسال الطلب', 's.thanks': 'شكرًا! تم إرسال طلبك.',
