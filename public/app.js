@@ -42,7 +42,7 @@
   // ---------------- routing ----------------
   async function load() { me = await api('GET', '/api/me'); }
   async function route() {
-    clearInterval(poll);
+    clearInterval(poll); $app.className = '';
     const hash = location.hash.replace(/^#\/?/, '') || '';
     document.documentElement.lang = lang; document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     if (window.NAPIZZO_DEMO && hash.startsWith('s/')) return window.NAPIZZO_DEMO.showShop(hash.slice(2));
@@ -125,15 +125,41 @@
   }
 
   // ---------------- dashboard shell ----------------
+  const NAV = [['home', 'home'], ['design', 'design'], ['menu', 'menu'], ['orders', 'orders'], ['settings', 'settings'], ['billing', 'billing']];
+  const TYPE_EMOJI = { pizzeria: '🍕', burger: '🍔', tacos: '🌮', sandwich: '🥙', other: '🍽️' };
+  const langSeg = () => `<div class="nz-seg" role="group" aria-label="${t('shell.language')}">${LANGS.map((l) => `<button type="button" class="nz-seg__opt" data-lang="${l}" aria-pressed="${l === lang}">${l === 'ar' ? 'العربية' : l.toUpperCase()}</button>`).join('')}</div>`;
   function shell(active, view) {
-    const items = [['home', '🏠'], ['design', '🎨'], ['menu', '📋'], ['orders', '🔔'], ['settings', '⚙️'], ['billing', '💳']];
-    $app.innerHTML = `${topbar()}<div class="shell"><nav class="nav">${items.map(([k, i]) => `<a href="#/${k}" class="${k === active ? 'on' : ''}"><span>${i}</span>${t('nav.' + k)}${k === 'orders' ? '<em class="dot" id="newdot" hidden></em>' : ''}</a>`).join('')}
-      <a href="#" id="logout"><span>🚪</span>${t('logout')}</a></nav><main id="main"></main></div>`;
+    const s = me.shop, emoji = TYPE_EMOJI[s.type] || '🍽️';
+    const link = (k, ic) => `<a class="nz-nav__item" href="#/${k}" ${k === active ? 'aria-current="page"' : ''}>${NZUI.icon(ic)}<span>${t('nav.' + k)}</span>${k === 'orders' ? '<span class="nz-count" data-newdot hidden></span>' : ''}</a>`;
+    const tab = (k, ic) => `<a class="nz-tab" href="#/${k}" ${k === active ? 'aria-current="page"' : ''}><span class="nz-tab__pill">${NZUI.icon(ic)}</span><span class="nz-tab__label">${t('nav.' + k)}</span>${k === 'orders' ? '<span class="nz-count" data-newdot hidden></span>' : ''}</a>`;
+    const moreActive = active === 'settings' || active === 'billing';
+    $app.className = 'nz';
+    $app.innerHTML = `<div class="nz-shell">
+      <aside class="nz-side"><a href="#/home" aria-label="Napizzo">${NZUI.logo(40)}</a>
+        <a class="nz-rest" href="${esc(shopUrl(s))}" target="_blank" rel="noopener"><span class="nz-rest__emoji">${emoji}</span><span class="nz-rest__txt"><span class="nz-rest__name">${esc(s.name)}</span><span class="nz-rest__url">/s/${esc(s.slug)}</span></span></a>
+        <nav class="nz-nav" aria-label="${t('shell.main')}">${NAV.map(([k, ic]) => link(k, ic)).join('')}</nav>
+        <div class="nz-side__foot"><a class="nz-btn nz-btn--secondary" href="${esc(shopUrl(s))}" target="_blank" rel="noopener">${NZUI.icon('external', 20)}${t('shell.viewPage')}</a>
+          ${langSeg()}<button type="button" class="nz-btn nz-btn--ghost-danger" id="logout">${NZUI.icon('logout', 22)}${t('logout')}</button></div></aside>
+      <div style="flex:1;min-width:0">
+        <header class="nz-top"><span class="nz-rest__emoji">${emoji}</span><span class="nz-top__name">${esc(s.name)}</span>
+          <a class="nz-iconbtn" href="${esc(shopUrl(s))}" target="_blank" rel="noopener" aria-label="${t('shell.viewPage')}">${NZUI.icon('external')}</a></header>
+        <main class="nz-main" id="main"></main></div>
+      <nav class="nz-tabs" aria-label="${t('shell.main')}">${NAV.slice(0, 4).map(([k, ic]) => tab(k, ic)).join('')}
+        <button type="button" class="nz-tab" id="more" ${moreActive ? 'aria-current="page"' : ''} aria-haspopup="dialog"><span class="nz-tab__pill">${NZUI.icon('more')}</span><span class="nz-tab__label">${t('nav.more')}</span></button></nav></div>`;
     bindLang();
-    $('#logout').onclick = async (e) => { e.preventDefault(); await api('POST', '/api/logout'); me = null; location.hash = '#/'; route(); };
+    $('#logout').onclick = logout;
+    $('#more').onclick = () => {
+      const m = NZUI.modal({ label: t('nav.more'), html: `<div class="nz-more">
+        ${['settings', 'billing'].map((k) => `<a class="nz-nav__item" href="#/${k}" data-nz-close><span class="nz-more__ico">${NZUI.icon(k)}</span><span>${t('nav.' + k)}</span>${NZUI.icon('chevron', 20)}</a>`).join('')}
+        <div style="padding:10px 12px 0;font-weight:700;color:var(--nz-ink-2);font-size:16px">${t('shell.language')}</div>${langSeg().replace('class="nz-seg"', 'class="nz-seg nz-seg--block"')}
+        <button type="button" class="nz-nav__item nz-more__danger" id="logout2"><span class="nz-more__ico">${NZUI.icon('logout', 22)}</span>${t('logout')}</button></div>` });
+      $('#logout2', m.el).onclick = () => { m.close(); logout(); };
+      $$('[data-lang]', m.el).forEach((b) => b.onclick = () => { m.close(); setLang(b.dataset.lang); route(); });
+    };
     view($('#main'));
     startPoll(active === 'orders');
   }
+  async function logout(e) { if (e && e.preventDefault) e.preventDefault(); await api('POST', '/api/logout'); me = null; location.hash = '#/'; route(); }
   function accessBanner() {
     const s = me.shop;
     if (s.access === 'trial') return `<div class="banner"><div>🎁 <b>${t('trial.left', { n: s.daysLeft })}</b></div><a class="btn small" href="#/billing">${t('subscribe')}</a></div>`;
@@ -148,7 +174,7 @@
         const fresh = o.filter((x) => x.status === 'new').length;
         if (lastOrderId && newest > lastOrderId) { beep(); toast('🔔 ' + t('orders.new')); }
         lastOrderId = Math.max(lastOrderId, newest);
-        const dot = $('#newdot'); if (dot) { dot.hidden = !fresh; dot.textContent = fresh; }
+        $$('[data-newdot]').forEach((dot) => { dot.hidden = !fresh; dot.textContent = fresh; });
         if (onOrders && JSON.stringify(o) !== JSON.stringify(orders)) { orders = o; drawOrders(); }
         orders = o;
       } catch {}

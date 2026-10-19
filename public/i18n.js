@@ -1,6 +1,7 @@
 // Translations shared by the platform UI (browser) and the shop pages (server). Keys "s.*" are used on shop pages.
 (function (root) {
   const en = {
+    'nav.more': 'More', 'shell.viewPage': 'View my page', 'shell.language': 'Language', 'shell.main': 'Main menu',
     login: 'Log in', logout: 'Log out', signup: 'Sign up', email: 'Email', password: 'Password', 'pw.hint': 'at least 6 characters',
     'login.title': 'Welcome back 👋', 'login.btn': 'Log in', 'signup.title': 'Create your account', 'signup.btn': 'Create my account',
     'have.acc': 'Already have an account?', 'no.acc': 'No account yet?',
@@ -57,6 +58,7 @@
     's.closedNow': 'Not taking orders right now', 's.closedDay': 'Closed', 's.soldOut': 'Sold out', 's.unavailable': 'This page is temporarily unavailable.',
   };
   const fr = {
+    'nav.more': 'Plus', 'shell.viewPage': 'Voir ma page', 'shell.language': 'Langue', 'shell.main': 'Menu principal',
     login: 'Se connecter', logout: 'Déconnexion', signup: 'S’inscrire', email: 'E-mail', password: 'Mot de passe', 'pw.hint': '6 caractères minimum',
     'login.title': 'Bon retour 👋', 'login.btn': 'Me connecter', 'signup.title': 'Créez votre compte', 'signup.btn': 'Créer mon compte',
     'have.acc': 'Vous avez déjà un compte ?', 'no.acc': 'Pas encore de compte ?',
@@ -112,6 +114,7 @@
     's.closedNow': 'Ne prend pas de commandes pour le moment', 's.closedDay': 'Fermé', 's.soldOut': 'Épuisé', 's.unavailable': 'Cette page est temporairement indisponible.',
   };
   const ar = {
+    'nav.more': 'المزيد', 'shell.viewPage': 'عرض صفحتي', 'shell.language': 'اللغة', 'shell.main': 'القائمة الرئيسية',
     login: 'تسجيل الدخول', logout: 'تسجيل الخروج', signup: 'إنشاء حساب', email: 'البريد الإلكتروني', password: 'كلمة المرور', 'pw.hint': '6 أحرف على الأقل',
     'login.title': 'أهلًا بعودتك 👋', 'login.btn': 'دخول', 'signup.title': 'أنشئ حسابك', 'signup.btn': 'إنشاء حسابي',
     'have.acc': 'لديك حساب؟', 'no.acc': 'ليس لديك حساب؟',

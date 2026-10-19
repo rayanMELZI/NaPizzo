@@ -251,3 +251,41 @@ select.nz-input{appearance:none;background-image:linear-gradient(45deg,transpare
   .nz *,.nz-backdrop,.nz-modal,.nz-toast{animation-duration:.12s!important;animation-iteration-count:1!important;transition-duration:.01s!important}
   .nz-count,.nz-live::before,.nz-skeleton{animation:none!important}
 }
+
+/* ---------- app shell ---------- */
+.nz-logo{display:inline-flex;align-items:center;gap:10px}
+.nz-logo__word{font:800 26px/1 var(--nz-font-display);letter-spacing:-.03em;color:var(--nz-ink)}
+.nz-shell{display:flex;min-height:100dvh;background:var(--nz-cream)}
+.nz-side{flex:none;width:288px;position:sticky;top:0;align-self:flex-start;height:100dvh;overflow-y:auto;display:flex;flex-direction:column;gap:18px;padding:22px 18px;background:#fff;border-inline-end:1px solid var(--nz-line)}
+.nz-rest{display:flex;align-items:center;gap:12px;padding:12px;border-radius:var(--nz-r-lg);background:var(--nz-cream);border:1px solid var(--nz-line);text-decoration:none;color:inherit;min-width:0}
+.nz-rest__emoji{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--nz-peach);font-size:26px}
+.nz-rest__txt{min-width:0}.nz-rest__name{display:block;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nz-rest__url{display:block;font-size:14px;color:var(--nz-ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:start}
+.nz-nav{display:flex;flex-direction:column;gap:4px}
+.nz-nav__item{position:relative;display:flex;align-items:center;gap:14px;min-height:56px;padding:0 16px;border-radius:var(--nz-r-md);color:var(--nz-ink-2);font:600 18px var(--nz-font-ui);text-decoration:none;border:0;background:none;cursor:pointer;width:100%;text-align:start}
+.nz-nav__item:hover{background:var(--nz-sand)}
+.nz-nav__item[aria-current=page]{background:var(--nz-tomato-50);color:var(--nz-tomato-700);font-weight:700}
+.nz-nav__item .nz-count{margin-inline-start:auto}
+.nz-side__foot{margin-top:auto;display:flex;flex-direction:column;gap:12px}
+.nz-side__foot .nz-btn{justify-content:flex-start}
+.nz-main{flex:1;min-width:0;padding:32px 40px 64px;max-width:1280px}
+.nz-top,.nz-tabs{display:none}
+@media(max-width:819px){
+  .nz-shell{display:block}
+  .nz-side{display:none}
+  .nz-top{display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:30;height:64px;padding:0 16px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--nz-line)}
+  .nz-top .nz-rest__emoji{width:40px;height:40px;font-size:22px}
+  .nz-top__name{flex:1;min-width:0;font:700 19px var(--nz-font-ui);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nz-main{padding:20px 16px 112px}
+  .nz-tabs{display:flex;position:fixed;inset-inline:0;inset-block-end:0;z-index:30;background:#fff;border-top:1px solid var(--nz-line);padding:4px 4px calc(4px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px -16px rgba(31,36,48,.3)}
+  .nz-tab{position:relative;flex:1;min-width:0;min-height:62px;border:0;background:none;color:var(--nz-ink-2);font:600 13px var(--nz-font-ui);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-decoration:none}
+  .nz-tab__pill{display:grid;place-items:center;width:56px;height:32px;border-radius:16px;transition:background .2s}
+  .nz-tab[aria-current=page]{color:var(--nz-tomato-700);font-weight:700}.nz-tab[aria-current=page] .nz-tab__pill{background:var(--nz-tomato-50)}
+  .nz-tab__label{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nz-tab .nz-count{position:absolute;inset-block-start:2px;inset-inline-start:calc(50% + 8px);min-width:22px;height:22px;font-size:13px;box-shadow:0 0 0 2px #fff}
+}
+.nz-more{display:flex;flex-direction:column;gap:6px}
+.nz-more .nz-nav__item{min-height:64px;font-size:19px}
+.nz-more__ico{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--nz-sand);flex:none}
+.nz-more__danger{color:var(--nz-tomato-700)}.nz-more__danger .nz-more__ico{background:var(--nz-tomato-50)}
+.nz [hidden],.nz-count[hidden]{display:none!important}

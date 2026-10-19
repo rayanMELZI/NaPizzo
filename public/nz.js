@@ -61,5 +61,14 @@
     el.setAttribute(attr, on); return on;
   }
 
-  root.NZUI = { icon, toast, modal, toggle, esc, paths: PATHS };
+  let logoN = 0;
+  // Brand mark (pizza with one slice lifted out). Wordmark is lowercase, always LTR.
+  function logo(size = 40, word = true) {
+    const id = 'nzg' + (++logoN);
+    return `<span class="nz-logo" dir="ltr"><svg width="${size}" height="${size}" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E63946"/><stop offset="1" stop-color="#FF7B54"/></linearGradient></defs>
+      <rect width="40" height="40" rx="12" fill="url(#${id})"/><path d="M20 20 L30.3 16.3 A11 11 0 1 1 23.8 9.7 Z" fill="#fff"/><path d="M22.5 17.5 L32.8 13.8 A11 11 0 0 0 26.3 7.2 Z" fill="#FFE1B0"/>
+      <circle cx="15" cy="18" r="2" fill="#D12F3C"/><circle cx="17.5" cy="25.5" r="2" fill="#D12F3C"/><circle cx="24" cy="24" r="2" fill="#D12F3C"/></svg>${word ? '<span class="nz-logo__word">napizzo</span>' : ''}</span>`;
+  }
+
+  root.NZUI = { logo, icon, toast, modal, toggle, esc, paths: PATHS };
 })(window);
