@@ -12,6 +12,8 @@ Static demo (no backend, data in localStorage) for hosting under any sub-path:  
 
 Data lives in `data/` (SQLite + uploaded images).
 
+CI (`.github/workflows/ci.yml`, GitHub Actions): on every push to `main` and every PR — `node --check` on all JS, `npm test` on Node 22 and 24, then `npm run build:preview` uploaded as the `napizzo-preview` artifact.
+
 ## Overview
 - `server.js` – HTTP API, auth (scrypt + cookie sessions), shop/menu/orders/billing, public shop route `/s/:slug`
 - `lib/shop-page.js` – server-rendered shop page (themes, sections, per-language texts, cart)
