@@ -5,7 +5,7 @@ const root = path.join(__dirname, '..');
 const dist = path.join(root, 'dist');
 fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(dist, { recursive: true });
-for (const f of ['style.css', 'app.js', 'shop.js', 'i18n.js']) fs.copyFileSync(path.join(root, 'public', f), path.join(dist, f));
+for (const f of ['style.css', 'app.js', 'shop.js', 'i18n.js', 'nz.js', 'nz-components.html']) fs.copyFileSync(path.join(root, 'public', f), path.join(dist, f));
 
 const mod = (name, file) => `def(${JSON.stringify(name)}, function (module, exports, require) {\n${fs.readFileSync(path.join(root, file), 'utf8')}\n});`;
 const bundle = `(function () {

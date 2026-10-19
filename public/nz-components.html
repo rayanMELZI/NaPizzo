@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Napizzo components</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=Readex+Pro:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+body{margin:0;background:var(--nz-cream)}
+.g{max-width:1100px;margin:0 auto;padding:32px 20px 120px}
+.g h1{font-size:44px;margin:0 0 8px}.g h2{font:800 28px var(--nz-font-display);margin:44px 0 16px}
+.row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.cap{font-size:14px;font-weight:600;color:var(--nz-ink-3);margin:0 0 6px}
+.bar{position:sticky;top:0;z-index:5;background:rgba(251,247,243,.94);backdrop-filter:blur(8px);padding:12px 0;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.sw{display:flex;gap:10px;flex-wrap:wrap}.sw i{width:64px;height:64px;border-radius:14px;display:grid;place-items:end start;padding:4px;font:600 11px monospace;font-style:normal;border:1px solid var(--nz-line)}
+</style>
+</head>
+<body class="nz">
+<div class="g">
+  <div class="bar"><div class="nz-display" style="font-size:24px">napizzo <span style="font-weight:400;font-size:16px;font-family:var(--nz-font-ui)">components</span></div>
+    <div class="nz-seg" id="dirseg" role="group" aria-label="Direction"><button class="nz-seg__opt" aria-pressed="true" data-dir="ltr">LTR</button><button class="nz-seg__opt" aria-pressed="false" data-dir="rtl">RTL</button></div></div>
+
+  <h1 class="nz-display">Warm, big, obvious.</h1>
+  <p>Every base component in every state. Tab through to check the focus rings.</p>
+
+  <h2>Type</h2>
+  <div class="nz-card"><div class="nz-display" style="font-size:56px">Your restaurant, online</div>
+    <p style="font-size:20px">Body large 20px · <span style="font-size:18px">body 18px</span> · <span style="font-size:16px">small 16px</span> · <b style="font-size:14px">caption 14px</b></p>
+    <p dir="rtl" style="font-size:20px">مطعمك على الإنترنت في 5 دقائق. 12.50 $ · <span class="nz-ltr">+213 555 01 02 03</span></p></div>
+
+  <h2>Colours</h2>
+  <div class="sw" id="sw"></div>
+
+  <h2>Buttons</h2>
+  <div class="row">
+    <button class="nz-btn nz-btn--primary">Start free</button>
+    <button class="nz-btn nz-btn--dark">Continue</button>
+    <button class="nz-btn nz-btn--secondary">Back</button>
+    <button class="nz-btn nz-btn--whatsapp"><span data-i="chat"></span>WhatsApp</button>
+    <button class="nz-btn nz-btn--cheese">Start preparing</button>
+    <button class="nz-btn nz-btn--basil">Mark as ready</button>
+    <button class="nz-btn nz-btn--ghost-danger">Delete</button>
+  </div>
+  <p class="cap" style="margin-top:18px">Large · small · block · disabled · loading</p>
+  <div class="row">
+    <button class="nz-btn nz-btn--primary nz-btn--lg">Create my page 🎉</button>
+    <button class="nz-btn nz-btn--secondary nz-btn--sm">Small</button>
+    <button class="nz-btn nz-btn--primary" disabled>Disabled</button>
+    <button class="nz-btn nz-btn--secondary" disabled>Disabled</button>
+    <button class="nz-btn nz-btn--primary is-loading" aria-busy="true">Saving…</button>
+    <button class="nz-btn nz-btn--dark is-loading" aria-busy="true">Loading</button>
+    <button class="nz-iconbtn" aria-label="Copy"><span data-i="copy"></span></button>
+  </div>
+  <div style="margin-top:14px;max-width:420px"><button class="nz-btn nz-btn--primary nz-btn--block">Block button</button></div>
+
+  <h2>Inputs</h2>
+  <div class="cols">
+    <label class="nz-field"><span class="nz-label">Default</span><input class="nz-input" placeholder="you@restaurant.com"></label>
+    <label class="nz-field"><span class="nz-label">Filled</span><input class="nz-input" value="Bella Napoli"></label>
+    <label class="nz-field"><span class="nz-label">Focus (click me)</span><input class="nz-input" value="Focus me"></label>
+    <div class="nz-field"><label class="nz-label" for="e1">Error</label><input id="e1" class="nz-input is-error" aria-invalid="true" value="abc"><div class="nz-error" role="alert">⚠️ <span>That password doesn’t look right. Try again.</span></div></div>
+    <label class="nz-field"><span class="nz-label">Disabled</span><input class="nz-input" disabled value="Not editable"></label>
+    <label class="nz-field"><span class="nz-label">Large</span><input class="nz-input nz-input--lg" placeholder="e.g. Bella Napoli"></label>
+    <div class="nz-field"><span class="nz-label">Web address</span><div class="nz-group"><span class="nz-affix nz-ltr">napizzo.app/</span><input class="nz-input nz-ltr" value="bella-napoli" aria-label="Web address"><span class="nz-pill-ok">✓ Available</span></div></div>
+    <label class="nz-field"><span class="nz-label">Phone <small>(optional)</small></span><input class="nz-input nz-ltr" type="tel" value="+213 555 01 02 03"></label>
+    <label class="nz-field"><span class="nz-label">Select</span><select class="nz-input"><option>$ US dollar</option><option>€ Euro</option></select></label>
+    <label class="nz-field"><span class="nz-label">Textarea</span><textarea class="nz-input">Fresh dough every morning.</textarea></label>
+  </div>
+
+  <h2>Chips (toggle cards)</h2>
+  <div class="cols">
+    <div><p class="cap">Language, off / on</p><div style="display:grid;gap:10px">
+      <button class="nz-chip" aria-pressed="false" data-t><span>🇬🇧 English</span><span class="nz-chip__check" data-i="check"></span></button>
+      <button class="nz-chip" aria-pressed="true" data-t><span>🇫🇷 Français</span><span class="nz-chip__check" data-i="check"></span></button></div></div>
+    <div><p class="cap">Type tiles</p><div class="nz-chip-row">
+      <button class="nz-chip nz-chip--tile" style="width:140px" aria-pressed="true" data-t><span class="nz-chip__emoji">🍕</span>Pizzeria<span class="nz-chip__check" data-i="check"></span></button>
+      <button class="nz-chip nz-chip--tile" style="width:140px" aria-pressed="false" data-t><span class="nz-chip__emoji">🍔</span>Burgers<span class="nz-chip__check" data-i="check"></span></button></div></div>
+    <div><p class="cap">Filter pills</p><div class="nz-chip-row">
+      <button class="nz-chip nz-chip--pill" aria-pressed="true" data-t>All <span class="nz-count" style="animation:none">4</span></button>
+      <button class="nz-chip nz-chip--pill" aria-pressed="false" data-t>New</button>
+      <button class="nz-chip nz-chip--pill" aria-pressed="false" data-t>Ready</button></div></div>
+  </div>
+
+  <h2>Switch &amp; segmented</h2>
+  <div class="cols">
+    <div style="display:grid;gap:10px">
+      <button class="nz-switch" role="switch" aria-checked="false" data-t><span class="nz-switch__text">Offer delivery<small>Customers can ask for delivery</small></span><span class="nz-switch__track"><span class="nz-switch__knob"></span></span></button>
+      <button class="nz-switch nz-switch--lg" role="switch" aria-checked="true" data-t><span class="nz-switch__text">Accept orders</span><span class="nz-switch__track"><span class="nz-switch__knob"></span></span></button></div>
+    <div><p class="cap">Language seg</p><div class="nz-seg" role="group" aria-label="Language"><button class="nz-seg__opt" aria-pressed="true">EN</button><button class="nz-seg__opt" aria-pressed="false">FR</button><button class="nz-seg__opt" aria-pressed="false">العربية</button></div>
+      <p class="cap" style="margin-top:14px">Block</p><div class="nz-seg nz-seg--block"><button class="nz-seg__opt" aria-pressed="true">🛍️ Pickup</button><button class="nz-seg__opt" aria-pressed="false">🛵 Delivery</button></div></div>
+  </div>
+
+  <h2>Badges</h2>
+  <div class="row">
+    <span class="nz-badge nz-badge--new">New</span><span class="nz-badge nz-badge--preparing">Preparing</span><span class="nz-badge nz-badge--ready">Ready</span>
+    <span class="nz-badge nz-badge--done">Done</span><span class="nz-badge nz-badge--cancelled">Cancelled</span><span class="nz-badge nz-badge--soldout">Sold out</span><span class="nz-badge nz-badge--info">Info</span>
+    <span class="nz-count">3</span><span class="nz-live">Live</span><span class="nz-pill-ok">✓ Available</span>
+  </div>
+
+  <h2>Cards, notes &amp; empty state</h2>
+  <div class="cols">
+    <div class="nz-card"><h3 style="margin:0 0 6px">Card</h3><p style="margin:0">White, 1px line, radius 24.</p></div>
+    <div class="nz-card nz-card--tint"><b>🎁 Free trial</b><p style="margin:6px 0 0">86 days left</p></div>
+    <div class="nz-card nz-card--ok"><b>Accepting orders</b></div>
+    <div class="nz-card nz-card--off"><b>Not accepting orders</b></div>
+    <div class="nz-note"><span data-i="globe"></span><span>Demo mode: no real payment is made.</span></div>
+  </div>
+  <div class="nz-empty" style="margin-top:20px"><div class="nz-empty__art">🛎️</div><h3>No orders yet</h3><p>When a customer orders, it shows up here with a sound.</p>
+    <div class="nz-empty__actions"><button class="nz-btn nz-btn--whatsapp"><span data-i="chat"></span>Share on WhatsApp</button><button class="nz-btn nz-btn--secondary"><span data-i="copy"></span>Copy link</button></div></div>
+  <div class="row" style="margin-top:20px"><div class="nz-skeleton" style="width:100%;height:84px"></div></div>
+
+  <h2>Modal, sheet &amp; toast</h2>
+  <div class="row"><button class="nz-btn nz-btn--primary" id="om">Open modal</button><button class="nz-btn nz-btn--secondary" id="ot">Show toast</button></div>
+  <p>Below 820px wide the modal becomes a bottom sheet. Esc or a click on the backdrop closes it; focus returns to this button.</p>
+</div>
+<script src="nz.js"></script>
+<script>
+  document.querySelectorAll('[data-i]').forEach((e) => { e.innerHTML = NZUI.icon(e.dataset.i, e.classList.contains('nz-chip__check') ? 18 : 24); });
+  document.addEventListener('click', (e) => { const t = e.target.closest('[data-t]'); if (t) NZUI.toggle(t); });
+  document.getElementById('dirseg').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-dir]'); if (!b) return;
+    document.documentElement.dir = b.dataset.dir; document.documentElement.lang = b.dataset.dir === 'rtl' ? 'ar' : 'en';
+    document.querySelectorAll('#dirseg button').forEach((x) => x.setAttribute('aria-pressed', x === b));
+  });
+  document.getElementById('ot').onclick = () => NZUI.toast('All changes saved');
+  document.getElementById('om').onclick = () => NZUI.modal({ title: 'Edit dish', label: 'Close', html: `
+    <div class="nz-field"><label class="nz-label" for="m1">Name</label><input id="m1" class="nz-input" value="Margherita"></div>
+    <div class="nz-grid-2"><label class="nz-field"><span class="nz-label">Price</span><input class="nz-input nz-ltr" value="8"></label><label class="nz-field"><span class="nz-label">Expiry</span><input class="nz-input nz-ltr" placeholder="MM/YY"></label></div>
+    <div class="nz-modal__foot"><button class="nz-btn nz-btn--primary" data-nz-close>Save</button><button class="nz-btn nz-btn--secondary" data-nz-close>Cancel</button></div>` });
+  const sw = document.getElementById('sw');
+  const cs = getComputedStyle(document.documentElement);
+  ['--nz-ink','--nz-cream','--nz-sand','--nz-tomato','--nz-tomato-600','--nz-tomato-700','--nz-orange','--nz-peach','--nz-basil-600','--nz-cheese','--nz-sky','--nz-whatsapp','--nz-done'].forEach((v) => {
+    const i = document.createElement('i'); i.style.background = cs.getPropertyValue(v); i.style.color = ['--nz-ink','--nz-tomato','--nz-tomato-600','--nz-tomato-700','--nz-basil-600','--nz-sky','--nz-whatsapp'].includes(v) ? '#fff' : '#000'; i.textContent = v.replace('--nz-', ''); sw.append(i);
+  });
+</script>
+</body>
+</html>
