@@ -160,12 +160,12 @@
           <button type="button" class="nz-btn nz-btn--secondary" id="copy">${icon('copy', 20)}${t('a.copyLink')}</button>
           <a class="nz-btn nz-btn--whatsapp" id="wa" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(s.name + ' ' + url)}">${icon('chat', 20)}${t('a.shareWa')}</a></div></div>
         <div class="nz-peach nz-hide-sm"><div class="nz-phone"><iframe title="${t('a.preview')}" tabindex="-1" src="${pageUrl(s.slug, 'preview=1&lang=' + (s.langs.includes(lang) ? lang : s.default_lang))}"></iframe></div></div></div>
-      <h2 class="nz-h3" style="margin:28px 0 12px">${t('a.quickTitle')}</h2>
+      <h2 class="nz-h3" style="margin:24px 0 10px">${t('a.quickTitle')}</h2>
       <div class="nz-cards">
         <a class="nz-quick" href="#/design"><span class="nz-quick__ico">${icon('design', 28)}</span><span><b>${t('a.qDesign')}</b><span>${t('a.qDesignSub')}</span></span></a>
         <a class="nz-quick" href="#/menu"><span class="nz-quick__ico">${icon('menu', 28)}</span><span><b>${t('a.qMenu')}</b><span>${t('a.qMenuSub', { n: menu ? menu.items.length : '…' })}</span></span></a>
         <a class="nz-quick${fresh ? ' nz-quick--hot' : ''}" href="#/orders"><span class="nz-quick__ico">${icon('bell', 28)}</span><span><b>${t('a.qOrders')}</b><span>${fresh ? t('a.qOrdersSub', { n: fresh }) : ''}</span></span></a></div>
-      <div class="nz-card" style="margin-top:24px"><h2 class="nz-h3">${t('a.todoTitle')}</h2>
+      <div class="nz-card" style="margin-top:20px"><h2 class="nz-h3">${t('a.todoTitle')}</h2>
         <div class="nz-prog" role="progressbar" aria-valuemin="0" aria-valuemax="${todo.length}" aria-valuenow="${done}"><i style="width:${(done / todo.length) * 100}%"></i></div><p style="margin:0 0 8px;color:var(--nz-ink-2)">${t('a.todoProg', { n: done, m: todo.length })}</p>
         ${todo.map(([ok, k, h]) => `<a class="nz-todo${ok ? ' is-done' : ''}" href="${h}"><span class="nz-todo__dot">${icon('check', 18)}</span><span class="nz-todo__txt">${t('a.' + k)}</span>${icon('chevron', 20)}</a>`).join('')}</div></div>`;
     $('#copy').onclick = (e) => copyLink(e.currentTarget);
@@ -293,7 +293,7 @@
     const heroBg = { gradient: 'linear-gradient(135deg,#D62F25,#F7B32B)', sunset: 'linear-gradient(160deg,#F7B32B,#C9431A)', dark: 'radial-gradient(circle at 25% 25%,#FFC93C88,transparent 55%),#14161d' };
     let txLang = s.langs.includes(lang) ? lang : s.langs[0];
     const rest = el.scrollTop;
-    el.innerHTML = `<div class="nz-page" style="max-width:1280px">${accessBanner()}<div class="nz-pagehead"><h1 class="nz-h1 nz-grow">${t('a.designTitle')}</h1><span id="chipwrap">${savedChip()}</span></div>
+    el.innerHTML = `<div class="nz-page nz-page--wide">${accessBanner()}<div class="nz-pagehead"><h1 class="nz-h1 nz-grow">${t('a.designTitle')}</h1><span id="chipwrap">${savedChip()}</span></div>
       <div class="nz-editor"><div class="nz-stack">
         <section class="nz-card"><h3 class="nz-ct">${t('a.dTheme')}</h3><div class="nz-themes">${Object.entries(me.themes).map(([k, p]) => `<button type="button" class="nz-theme" data-th="${k}" aria-pressed="${['primary', 'accent', 'bg', 'card', 'text'].every((c) => th[c].toLowerCase() === p[c].toLowerCase()) && th.hero === p.hero}"><div class="nz-swatch" style="background:${p.bg}"><i style="background:${p.primary}"></i><i style="background:${p.accent}"></i><i style="background:${p.card}"></i></div>${t('theme.' + k)}</button>`).join('')}</div></section>
         <section class="nz-card"><h3 class="nz-ct">${t('a.dColors')}</h3>${colors.map(([k, l]) => `<div class="nz-colorrow"><span>${t('a.' + l)}</span><code>${th[k].toUpperCase()}</code><input type="color" data-c="${k}" value="${th[k]}" aria-label="${t('a.' + l)}"></div>`).join('')}</section>
@@ -374,7 +374,7 @@
     const s = me.shop, paid = s.access === 'paid', trial = s.access === 'trial';
     const pts = { starter: ['s1', 's2', 's3', 's4'], pro: ['p1', 'p2', 'p3', 'p4'] };
     const total = 90, deg = Math.round(Math.min(1, s.daysLeft / total) * 360);
-    el.innerHTML = `<div class="nz-page nz-page--narrow" style="max-width:960px"><div class="nz-pagehead"><h1 class="nz-h1 nz-grow">${t('a.billingTitle')}</h1></div>
+    el.innerHTML = `<div class="nz-page nz-page--narrow" style="max-width:880px"><div class="nz-pagehead"><h1 class="nz-h1 nz-grow">${t('a.billingTitle')}</h1></div>
       <div class="nz-card" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-bottom:20px"><div class="nz-ring" style="--deg:${deg}deg"><span><div>${s.daysLeft}<small>${t('a.days')}</small></div></span></div>
         <div style="flex:1;min-width:220px"><h2 class="nz-h3">${paid ? t('b.active', { plan: t('plan.' + s.plan), n: s.daysLeft }) : trial ? t('a.bStatus') : t('expired')}</h2>
           <p style="margin:6px 0 0;color:var(--nz-ink-2)">${trial ? t('a.bStatusSub', { n: s.daysLeft, date: dateStr(s.trial_ends) }) : paid ? (s.card_last4 ? `💳 •••• ${esc(s.card_last4)}` : t('b.cancelled')) : ''}</p>
@@ -414,11 +414,12 @@
   }
   const HERO_BG = (p, a, h) => h === 'dark' ? `radial-gradient(circle at 20% 20%,${a}66,transparent 55%),linear-gradient(135deg,#000,${p}44)` : h === 'sunset' ? `linear-gradient(160deg,${a},${p})` : `linear-gradient(135deg,${p},${a} 140%)`;
   // Tiny static preview of a shop page in a theme (landing mockup, wizard theme cards).
-  function miniShop(th, name, emoji = '🍕', cart = false) {
+  function miniShop(th, name, emoji = '🍕', cart = false, rows = 2) {
+    const em = [emoji, '🍅', '🧀', '🥗', '🍟', '🥤'];
     return `<div class="nz-mini" style="--p:${th.primary};--a:${th.accent};--bg:${th.bg};--card:${th.card};--t:${th.text};--r:${Math.min(th.radius, 18)}px;font-family:${FONT_CSS[th.font]}">
       <div class="nz-mini__hero" style="background:${HERO_BG(th.primary, th.accent, th.hero)}"><b>${esc(name)}</b><span>${emoji}</span></div>
       <div class="nz-mini__chips"><i style="background:var(--p)"></i><i></i><i></i></div>
-      <div class="nz-mini__item"><u>${emoji}</u><div><b></b><b class="s"></b></div><em></em></div><div class="nz-mini__item"><u>🍅</u><div><b></b><b class="s"></b></div><em></em></div>
+      ${Array.from({ length: rows }, (_, i) => `<div class="nz-mini__item${i % 2 ? ' alt' : ''}"><u>${em[i % em.length]}</u><div><b></b><b class="s"></b></div><em></em></div>`).join('')}
       ${cart ? '<div class="nz-mini__cart"></div>' : ''}</div>`;
   }
 
@@ -431,7 +432,7 @@
         <h1 class="nz-display nz-hero__h">${t('a.heroTitleA')}<br><span class="nz-gradtext">${t('a.heroTitleB')}</span></h1><p class="nz-hero__p">${t('a.heroSub')}</p>
         <div class="nz-actions"><a class="nz-btn nz-btn--primary nz-btn--lg" href="#/signup">${t('a.startFree')}</a><button type="button" class="nz-btn nz-btn--secondary nz-btn--lg" id="demo">${t('a.seeDemo')}</button></div>
         <p class="nz-ok">${icon('check', 20)} ${t('a.ctaNote')}</p></div>
-        <div class="nz-hero__art"><div class="nz-hero__panel"></div><div class="nz-phone nz-phone--lg">${miniShop(th, 'Bella Napoli', '🍕', true)}</div>
+        <div class="nz-hero__art"><div class="nz-hero__panel"></div><div class="nz-phone nz-phone--lg">${miniShop(th, 'Bella Napoli', '🍕', true, 6)}</div>
           <div class="nz-float nz-float--a"><span class="nz-bell">🛎️</span><span><b>${t('a.mockOrder')}</b><small>${t('a.mockOrderSub')}</small></span></div>
           <div class="nz-float nz-float--b"><span class="nz-badge nz-badge--ready">${icon('check', 16)} ${t('a.mockSaved')}</span></div>
           <div class="nz-float nz-float--c"><span class="nz-badge nz-badge--info">EN</span><span class="nz-badge nz-badge--info">FR</span><span class="nz-badge nz-badge--info">ع</span></div></div></section>
@@ -444,7 +445,7 @@
       <footer class="nz-foot"><div class="nz-ptop__in">${NZUI.logo(32)}<span class="nz-grow"></span><a href="#">${t('a.help')}</a><a href="#">${t('a.privacy')}</a><a href="#">${t('a.terms')}</a><a href="#">${t('a.contact')}</a></div><p>${t('a.rights')}</p></footer>`;
     bindLang();
     $$('[data-sc]').forEach((a) => a.onclick = (e) => { e.preventDefault(); document.getElementById(a.dataset.sc).scrollIntoView({ behavior: 'smooth' }); });
-    $('#demo').onclick = () => NZUI.modal({ title: t('a.seeDemo'), label: t('a.cancel'), html: `<div class="nz-peach" style="padding:24px"><div class="nz-phone nz-phone--lg" style="width:280px;height:560px">${miniShop(th, 'Bella Napoli', '🍕', true)}</div></div><div class="nz-modal__foot"><a class="nz-btn nz-btn--primary" href="#/signup" data-nz-close>${t('a.startFree')}</a></div>` });
+    $('#demo').onclick = () => NZUI.modal({ title: t('a.seeDemo'), label: t('a.cancel'), html: `<div class="nz-peach" style="padding:24px"><div class="nz-phone nz-phone--lg" style="width:280px;height:560px">${miniShop(th, 'Bella Napoli', '🍕', true, 6)}</div></div><div class="nz-modal__foot"><a class="nz-btn nz-btn--primary" href="#/signup" data-nz-close>${t('a.startFree')}</a></div>` });
   }
 
   // ---------------- sign up / log in ----------------
@@ -486,9 +487,9 @@
     if (w.step === 4) body = `${field(t('a.phoneLabel'), `<input class="nz-input nz-input--lg nz-ltr" type="tel" id="phone" value="${esc(w.phone)}" placeholder="+1 555 000 000" autofocus>`, t('a.phoneHint'))}${sw('wa', t('a.hasWa'), '', w.wa)}`;
     $app.innerHTML = `<div class="nz-wiz"><header class="nz-ptop nz-ptop--wiz"><div class="nz-ptop__in"><a href="#/" aria-label="Napizzo">${NZUI.logo(36)}</a><span class="nz-grow" style="text-align:center;font-weight:700">${t('a.stepOf', { n: w.step })}</span>${langSeg()}</div>
         <div class="nz-steps" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="${w.step}" aria-label="${t('a.stepOf', { n: w.step })}">${[1, 2, 3, 4].map((i) => `<i class="${i <= w.step ? 'on' : ''}"></i>`).join('')}</div></header>
-      <main class="nz-wiz__main"><div class="nz-wiz__step"><h1 class="nz-h1" style="font-size:34px">${t(titles[w.step][0])}</h1>${titles[w.step][1] ? `<p class="nz-sub" style="margin-bottom:24px">${t(titles[w.step][1])}</p>` : '<div style="height:24px"></div>'}${body}</div></main>
+      <main class="nz-wiz__main"><div class="nz-wiz__step"><h1 class="nz-h1">${t(titles[w.step][0])}</h1>${titles[w.step][1] ? `<p class="nz-sub" style="margin-bottom:24px">${t(titles[w.step][1])}</p>` : '<div style="height:24px"></div>'}${body}</div></main>
       <footer class="nz-wiz__foot"><div class="nz-wiz__footin">${w.step > 1 ? `<button type="button" class="nz-btn nz-btn--secondary nz-btn--lg" id="back">${icon('chevron', 20).replace('nz-icon', 'nz-icon nz-flip-always')}${t('a.back')}</button>` : '<span></span>'}
-        <button type="button" class="nz-btn ${w.step === 4 ? 'nz-btn--primary' : 'nz-btn--dark'} nz-btn--lg" id="next" style="flex:1;max-width:420px">${w.step === 4 ? t('a.create') + ' 🎉' : t('a.next')}</button></div></footer></div>`;
+        <button type="button" class="nz-btn ${w.step === 4 ? 'nz-btn--primary' : 'nz-btn--dark'} nz-btn--lg" id="next">${w.step === 4 ? t('a.create') + ' 🎉' : t('a.next')}</button></div></footer></div>`;
     bindLang();
     $$('[data-type]').forEach((b) => b.onclick = () => { w.name = $('#name').value; w.type = b.dataset.type; wizard(); });
     $$('[data-th]').forEach((b) => b.onclick = () => { w.theme = b.dataset.th; wizard(); });

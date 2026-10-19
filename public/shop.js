@@ -67,7 +67,7 @@
       <label class="f">${esc(S['sh.note'])}<textarea id="f-note" placeholder="${esc(S['sh.notePh'])}"></textarea></label>
       <div class="sum"><div><span>${esc(S['sh.subtotal'])}</span><span>${fmt(sub())}</span></div>${del ? `<div><span>${esc(S['sh.fee'])}</span><span>${fmt(D.fee)}</span></div>` : ''}<div class="tot"><span>${esc(S['sh.total'])}</span><span>${fmt(sub() + (del ? D.fee : 0))}</span></div></div>
       <div class="cash">💵 ${esc(S['sh.cash'])}</div><p class="err" id="err" role="alert"></p>
-      <button type="button" class="btn lg block" id="go" style="min-height:60px">${esc(S['sh.place'])} · ${fmt(sub() + (del ? D.fee : 0))}</button>`;
+      <button type="button" class="btn lg block" id="go" style="min-height:52px">${esc(S['sh.place'])} · ${fmt(sub() + (del ? D.fee : 0))}</button>`;
     ['f-name', 'f-phone', 'f-addr', 'f-note'].forEach((id, i) => { if ($(id)) $(id).value = keep[i] || ''; });
     $('cl').onclick = closeSheet;
     sin.querySelectorAll('[data-m]').forEach((b) => b.onclick = () => { mode = b.dataset.m; draw(); });
