@@ -33,8 +33,8 @@ test('i18n: all languages have the same keys, and every t() key used exists', ()
 
 test('full flow: signup, shop, public page, order, billing', async () => {
   assert.strictEqual((await call('POST', '/api/signup', { email: 'a@b.co', password: '123' })).status, 400);
-  assert.strictEqual((await call('POST', '/api/signup', { email: 'a@b.co', password: '123456' })).status, 200);
-  assert.strictEqual((await call('POST', '/api/signup', { email: 'a@b.co', password: '123456' })).status, 409);
+  assert.strictEqual((await call('POST', '/api/signup', { email: 'a@b.co', password: '12345678' })).status, 200);
+  assert.strictEqual((await call('POST', '/api/signup', { email: 'a@b.co', password: '12345678' })).status, 409);
   let me = (await call('GET', '/api/me')).data;
   assert.strictEqual(me.user.email, 'a@b.co'); assert.ok(!me.shop);
 
@@ -81,7 +81,7 @@ test('full flow: signup, shop, public page, order, billing', async () => {
 });
 
 test('upload accepts images only', async () => {
-  await call('POST', '/api/login', { email: 'a@b.co', password: '123456' });
+  await call('POST', '/api/login', { email: 'a@b.co', password: '12345678' });
   assert.strictEqual((await call('POST', '/api/upload', Buffer.from('x'), { 'Content-Type': 'text/html' })).status, 415);
   const r = await call('POST', '/api/upload', Buffer.from('89504e47', 'hex'), { 'Content-Type': 'image/png' });
   assert.match(r.data.url, /^\/uploads\/\w+\.png$/);

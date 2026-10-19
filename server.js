@@ -116,7 +116,7 @@ function createApp({ dbFile = path.join(__dirname, 'data', 'napizzo.db'), upload
     const { email, password, lang } = await jbody(req);
     const e = str(email, 120).toLowerCase();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)) bad('email');
-    if (String(password || '').length < 6) bad('password');
+    if (String(password || '').length < 8) bad('password');
     if (db.prepare('SELECT 1 FROM users WHERE email=?').get(e)) bad('exists', 409);
     const salt = crypto.randomBytes(16).toString('hex');
     const id = db.prepare('INSERT INTO users (email,salt,hash,lang,created_at) VALUES (?,?,?,?,?)').run(e, salt, hashPw(password, salt), LANGS.includes(lang) ? lang : 'en', Date.now()).lastInsertRowid;

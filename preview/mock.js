@@ -33,7 +33,7 @@
   const routes = [];
   const R = (m, re, fn) => routes.push([m, new RegExp(`^${re}$`), fn]);
   R('GET', '/api/me', () => db.user ? { user: db.user, shop: db.shop && pub(db.shop), plans: PLANS, themes: THEMES, starters: Object.keys(STARTERS) } : { user: null });
-  R('POST', '/api/signup', (b) => { if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(b.email || '')) throw err(400, 'email'); if (String(b.password || '').length < 6) throw err(400, 'password'); db.user = { email: b.email, lang: b.lang || 'en' }; return { ok: true }; });
+  R('POST', '/api/signup', (b) => { if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(b.email || '')) throw err(400, 'email'); if (String(b.password || '').length < 8) throw err(400, 'password'); db.user = { email: b.email, lang: b.lang || 'en' }; return { ok: true }; });
   R('POST', '/api/login', (b) => { if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(b.email || '') || !b.password) throw err(401, 'credentials'); db.user = db.user || { email: b.email, lang: 'en' }; return { ok: true }; });
   R('POST', '/api/logout', () => { sessionStorage.demoOut = '1'; return { ok: true }; });
   R('PUT', '/api/me/lang', () => ({ ok: true }));
@@ -133,7 +133,9 @@
       const lang = q.get('lang') || localStorage.lang || s.default_lang;
       const html = render(s, db.cats, db.items, lang, { preview: q.has('preview'), unavailable: access(s) === 'expired',
         langHref: (l) => `#/s/${slug}?lang=${l}${q.has('preview') ? '&preview=1' : ''}`, shopJs: 'shop.js', home: location.pathname });
+      document.querySelectorAll('link[rel=stylesheet],style').forEach((n) => n.remove());
       document.open(); document.write(html); document.close();
+      const m = html.match(/<html lang="(\w+)" dir="(\w+)"/); if (m) { document.documentElement.lang = m[1]; document.documentElement.dir = m[2]; }
       window.onhashchange = () => location.reload();
     },
   };
