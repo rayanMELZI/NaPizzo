@@ -363,5 +363,6 @@ function createApp({ dbFile = path.join(__dirname, 'data', 'napizzo.db'), upload
 module.exports = { createApp };
 if (require.main === module) {
   const port = process.env.PORT || 3000;
-  createApp().listen(port, () => console.log(`Napizzo running on http://localhost:${port}`));
+  const host = process.env.HOST || undefined;
+  createApp().listen(port, host, () => console.log(`Napizzo running on http://${host || 'localhost'}:${port}`));
 }
