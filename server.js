@@ -23,6 +23,8 @@ function createApp({ dbFile = path.join(__dirname, 'data', 'napizzo.db'), upload
     const now = Date.now(); const a = (hits.get(key) || []).filter((t) => now - t < ms);
     a.push(now); hits.set(key, a); return a.length > max;
   };
+  // Behind a reverse proxy (TRUST_PROXY=1) the client address comes from X-Real-IP.
+  const clientIp = (req) => (process.env.TRUST_PROXY === '1' && req.headers['x-real-ip']) || req.socket.remoteAddress;
 
   class HttpError extends Error { constructor(status, msg) { super(msg); this.status = status; } }
   const bad = (m, s = 400) => { throw new HttpError(s, m); };
@@ -112,7 +114,7 @@ function createApp({ dbFile = path.join(__dirname, 'data', 'napizzo.db'), upload
   const R = (method, re, auth, fn) => routes.push({ method, re: new RegExp(`^${re}$`), auth, fn });
 
   R('POST', '/api/signup', false, async (req, res) => {
-    if (limited('su' + req.socket.remoteAddress, 10)) bad('Too many attempts', 429);
+    if (limited('su' + clientIp(req), 10)) bad('Too many attempts', 429);
     const { email, password, lang } = await jbody(req);
     const e = str(email, 120).toLowerCase();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)) bad('email');
@@ -123,7 +125,7 @@ function createApp({ dbFile = path.join(__dirname, 'data', 'napizzo.db'), upload
     send(res, 200, { ok: true }, login(res, id));
   });
   R('POST', '/api/login', false, async (req, res) => {
-    if (limited('li' + req.socket.remoteAddress, 15)) bad('Too many attempts', 429);
+    if (limited('li' + clientIp(req), 15)) bad('Too many attempts', 429);
     const { email, password } = await jbody(req);
     const u = db.prepare('SELECT * FROM users WHERE email=?').get(str(email, 120).toLowerCase());
     const ok = u && crypto.timingSafeEqual(Buffer.from(hashPw(String(password || ''), u.salt), 'hex'), Buffer.from(u.hash, 'hex'));
@@ -291,7 +293,7 @@ function createApp({ dbFile = path.join(__dirname, 'data', 'napizzo.db'), upload
 
   // public
   R('POST', '/api/public/([a-z0-9-]+)/orders', false, async (req, res, _u, slug) => {
-    if (limited('or' + req.socket.remoteAddress, 12)) bad('Too many orders, try later', 429);
+    if (limited('or' + clientIp(req), 12)) bad('Too many orders, try later', 429);
     const s = shopRow(db.prepare('SELECT * FROM shops WHERE slug=?').get(slug)) || bad('not found', 404);
     if (access(s) === 'expired' || !s.accepting) bad('closed', 403);
     const b = await jbody(req);
