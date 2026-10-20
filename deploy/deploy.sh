@@ -20,7 +20,7 @@ sudo systemctl restart napizzo
 sudo systemctl reload nginx
 
 for i in $(seq 1 20); do
-  if curl -fsS -o /dev/null http://127.0.0.1:3000/; then echo "napizzo is up"; exit 0; fi
+  if curl -fs -o /dev/null http://127.0.0.1:3000/; then echo "napizzo is up"; exit 0; fi
   sleep 0.5
 done
 echo "napizzo did not answer on :3000" >&2
