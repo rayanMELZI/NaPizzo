@@ -228,12 +228,12 @@
             <span class="nz-item__price">${money(i.price, s)}</span>
             <button type="button" class="nz-eye" data-av="${i.id}" aria-pressed="${!!i.available}">${icon(i.available ? 'eye' : 'eyeOff', 20)}<span class="nz-hide-sm">${t(i.available ? 'a.visible' : 'a.hidden')}</span></button>
             <button type="button" class="nz-btn nz-btn--secondary nz-btn--sm" data-ei="${i.id}">${icon('edit', 18)}<span class="nz-hide-sm">${t('a.edit')}</span></button></div>`).join('')}
-          <button type="button" class="nz-addrow" data-ai="${c.id}">${icon('plus', 20)}${t('a.addDish')}</button></section>`; }).join('')}</div>
+          <button type="button" class="nz-addrow" data-add-item="${c.id}">${icon('plus', 20)}${t('a.addDish')}</button></section>`; }).join('')}</div>
         ${limited && menu.items.length >= me.plans.starter.maxItems - 5 ? `<div class="nz-note" style="margin-top:16px">${icon('billing')}<span>${t('a.upgradeNote')}</span></div>` : ''}</div>`;
       $('#addcat').onclick = () => catForm();
       $('#adddish').onclick = () => itemForm(null, menu.cats[0].id);
       $$('[data-ec]', el).forEach((b) => b.onclick = () => catForm(menu.cats.find((c) => c.id == b.dataset.ec)));
-      $$('[data-ai]', el).forEach((b) => b.onclick = () => itemForm(null, +b.dataset.ai));
+      $$('[data-add-item]', el).forEach((b) => b.onclick = () => itemForm(null, +b.dataset.addItem));
       $$('[data-ei]', el).forEach((b) => b.onclick = () => itemForm(menu.items.find((i) => i.id == b.dataset.ei)));
       $$('[data-av]', el).forEach((b) => b.onclick = async () => { const i = menu.items.find((x) => x.id == b.dataset.av); menu = await api('PUT', '/api/items/' + i.id, { available: !i.available }); draw(); });
     };
