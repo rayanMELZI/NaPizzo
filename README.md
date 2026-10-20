@@ -12,6 +12,12 @@ Static demo (no backend, data in localStorage) for hosting under any sub-path:  
 
 Data lives in `data/` (SQLite + uploaded images).
 
+## Production
+https://napizzo.rayanemelzi.dev — Cloudflare tunnel → nginx (`deploy/nginx-napizzo.conf`) → `127.0.0.1:3000`
+(systemd unit `napizzo`, code in `/opt/napizzo`, data in `/opt/napizzo/data`, never overwritten).
+Deploy from a checkout on the server: `bash deploy/deploy.sh` (runs the tests, syncs, restarts).
+`HOST`, `PORT` and `TRUST_PROXY=1` (rate limits use `X-Real-IP`) are set in the unit.
+
 ## Overview
 - `server.js` – HTTP API, auth (scrypt + cookie sessions), shop/menu/orders/billing, public shop route `/s/:slug`
 - `lib/shop-page.js` – server-rendered shop page (themes, sections, per-language texts, cart)
