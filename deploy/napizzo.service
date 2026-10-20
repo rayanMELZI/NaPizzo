@@ -6,7 +6,7 @@ After=network.target
 User=pilot
 WorkingDirectory=/opt/napizzo
 Environment=NODE_ENV=production PORT=3000 HOST=127.0.0.1 TRUST_PROXY=1
-ExecStart=/usr/bin/node server.js
+ExecStart=/usr/local/bin/node server.js
 Restart=on-failure
 RestartSec=3
 
