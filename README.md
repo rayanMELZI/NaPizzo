@@ -18,6 +18,8 @@ https://napizzo.rayanemelzi.dev — Cloudflare tunnel → nginx (`deploy/nginx-n
 Deploy from a checkout on the server: `bash deploy/deploy.sh` (runs the tests, syncs, restarts).
 `HOST`, `PORT` and `TRUST_PROXY=1` (rate limits use `X-Real-IP`) are set in the unit.
 
+CI (`.github/workflows/ci.yml`, GitHub Actions): on every push to `main` and every PR — `node --check` on all JS, `npm test` on Node 22 and 24, then `npm run build:preview` uploaded as the `napizzo-preview` artifact.
+
 ## Overview
 - `server.js` – HTTP API, auth (scrypt + cookie sessions), shop/menu/orders/billing, public shop route `/s/:slug`
 - `lib/shop-page.js` – server-rendered shop page (themes, sections, per-language texts, cart)
